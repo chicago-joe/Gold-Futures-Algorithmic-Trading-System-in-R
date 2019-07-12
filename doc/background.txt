@@ -1,0 +1,28 @@
+# background.txt
+# R script for trend following system for gold and silver prices 
+# 
+# Author: Joseph Loss, loss2@illinois.edu
+# Created on 6/30/2019
+#
+
+# BACKGROUND (given from client) ---------------------------------------
+# I work in the mineral exploration business and one of the problems we have is helping investors earn positive returns despite the industry being extremely cyclical. During downturns in the gold or metals market even the best junior mining stocks can lose 90% of their value. Raising money during these downturns can be dilutive and some companies end up doing "death spiral" financings. Also, many of the companies simply disappear or go bankrupt.
+# I would like to design a company operating strategy and an investor strategy around the cyclicality in the gold/silver market. The idea is to reduce financings and operating expenditures during downturns and ramp them up during upturns.
+# Identifying these trends can be difficult. Generally, there is over-investment and over-leveraging at the tail end of a cycle - causing the bankruptcies. How easy is it to identify trends in gold / silver? How well do simple trend following systems work in the gold and silver markets?
+# Let me know if this is possible. 
+
+# One follow up I had in mind was the ideal commodity mix for a junior miner to reduce correlation and weather bear markets. 
+# We can do this as a separate project. Thanks, Client
+
+# TODO ---------------------------------------------
+# 1. Create script to test results of trading gold and silver using simple trend-following system based on moving averages.
+# 2. Compare results of buy and hold vs. simple trend following.
+# 3. Compare performance of gold vs. the gold miner ETF (GDX). 
+# 4. Compare to buying and holding the S&P 500
+# 5. Display the results of the performance including total return and max drawdown, etc.
+
+# Questions to answer:
+# What is the "best" trend following system we can design for gold / silver that is not over-fitting the data?
+# How does the trends in gold and silver related to the mining and exploration ETF's / indexes (GDX, GDXJ)?
+# How does the performance of the trend following system(s) compare to buy and hold in gold, silver and S&P500?
+# The deliverable is R code running a few reasonably simple trend following systems on gold, silver, miners, junior miners over the life of the indexes. Gold silver prices since 1972-ish. The indexes have much shorter lifes - maybe 10+ years.
