@@ -1,4 +1,4 @@
-# R Commodity Futures Trading Algorithm
+# Gold Continuous-Futures Trading Algorithm in R 
 _Created using R and the ![quantstrat](https://github.com/braverock/quantstrat) library_
 
 
