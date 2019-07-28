@@ -281,7 +281,7 @@ table.AnnualizedReturns(daily.returns, scale = 260.85) # adjusted for weekdays
 # per year of ~ 260.85
 
 # chart performance
-charts.PerformanceSummary(daily.returns, main = "FOMC Cycle Strategy Performance")
+charts.PerformanceSummary(daily.returns, main = "Strategy Performance Summary ")
 
 # get some summary trade statistics
 stats[,c("Symbol", "Num.Trades", "Percent.Positive", "Net.Trading.PL",
