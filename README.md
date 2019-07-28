@@ -5,10 +5,10 @@ _created using the ![quantstrat](https://github.com/braverock/quantstrat) librar
 Huge credit and thank you to ![Ilya Kipnis](https://www.linkedin.com/in/ilyakipnis/) for all of his time and effort spent creating walk-throughs and proper documentation for the quantstrat package.
 <br/>
 <br/>
-For help on getting started in quantstrat, quantmod, and PerformanceAnalytics, check out the documentation here: ![QuantstratTrader](https://quantstrattrader.wordpress.com)
+For help getting started with quantstrat, quantmod, and performanceanalytics packages, check out the QuantstratTrader docs ![here](https://quantstrattrader.wordpress.com)
 <br/>
 <br/>
-#### Repository created, developed, and maintained by:
+#### This repository is created, developed, and maintained by:
 Joseph Loss  
 MS Financial Engineering  
 University of Illinois at Urbana-Champaign  
