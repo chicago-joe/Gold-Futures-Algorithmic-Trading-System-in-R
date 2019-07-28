@@ -1,8 +1,11 @@
 # Gold Continuous-Futures Trading Algorithm in R 
-_Created using R and the ![quantstrat](https://github.com/braverock/quantstrat) library_
+_Created using the ![quantstrat](https://github.com/braverock/quantstrat) library_
 
 
-For more information, check out the documentation on ![Ilya_Kipness_QuantstratTrader](https://quantstrattrader.wordpress.com)
+Huge credit and thank you to ![Ilya Kipnis](https://www.linkedin.com/in/ilyakipnis/) for all of his time and effort in making detailed walk-throughs and documentation of the quantstrat, quantmod, and PerformanceAnalytics packages.
+
+For help getting started in quantstrat, check out the documentation here: ![Ilya_Kipness_QuantstratTrader(https://quantstrattrader.wordpress.com)
+
 <br/>
 <br/>
 #### Created, developed, and maintained by:
