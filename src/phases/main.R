@@ -48,7 +48,7 @@ stock(symbols, currency = "USD", multiplier = 1)
 ZJG.TO = na.approx(ZJG.TO)
 
 initDate = "1960-01-01"         # must have initDate BEFORE first day of price data
-tradeSize <- 10000                    # trade sizing
+tradeSize <- 50000                    # trade sizing
 initEq <- tradeSize*length(symbols)   # initial equity size
 
 

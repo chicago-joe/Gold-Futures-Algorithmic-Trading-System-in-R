@@ -23,7 +23,7 @@ Quandl.api_key(MY_QUANDL_API_KEY)
 
 # pull gold continuous futures from Quandl 
 goldFutures <- quandClean(stemCode = "CHRIS/CME_GC",
-                          start_date = "1968-01-02",
+                          start_date = "2000-01-02",
                           end_date = "2019-07-01",
                           verbose = TRUE)
 ticker <-"CHRIS/CME_GC"
@@ -31,10 +31,17 @@ CrossCurrency <- paste(substr(ticker, 1,12), substr(ticker,-1,-12), sep="")
 assign(ticker,goldFutures)
 
 
-## BEGIN QUANTSTRAT TRADING -------------------------------------------------------------------------
-# Configuration Metadata ----------------------------------------------------------------------------
+# Configuration Metadata ----------------------------------------------------------
 options(width=70)
 options("getSymbols.warning4.0" = FALSE)
+
+# Charting Parameters
+myPars <- chart_pars()
+myPars$mar <- c(3, 2, 0, .2) # default is c(3, 1, 0, 1)  # bottom, left, top, right
+myPars$cex <- 1.5 #' Increase font size of both x and y axis scale ticks
+mychartTheme <- chart_theme()
+mychartTheme$rylab = FALSE  #' Don't show y-axis on right side of plot to save space
+
 
 # NOTE: Stock blotter must be reset before every portfolio run
 rm(list = ls(.blotter), envir = .blotter)   # reset stock blotter
@@ -48,8 +55,8 @@ symbols = c("CHRIS/CME_GC")        # choose which symbol or symbols to use in st
 stock(symbols, currency = "USD", multiplier = 1)
 
 
-initDate = "1960-01-01"         # must have initDate BEFORE first day of price data
-tradeSize <- 10000                    # trade sizing
+initDate = "2000-01-01"         # must have initDate BEFORE first day of price data
+tradeSize <- 50000                    # trade sizing
 initEq <- tradeSize*length(symbols)   # initial equity size
 
 
@@ -60,7 +67,8 @@ rm.strat(portfolio.st)  # remove portfolio after each backtest or quantstrat wil
 rm.strat(strategy.st)   # remove strategy after each backtest or quantstrat will fail
 
 
-# Initialization -------------------------------------------------------------
+
+# Strategy Initialization -------------------------------------------------------------
 # init portfolio, account, orders, and strategy
 initPortf(portfolio.st, 
           symbols = symbols,
@@ -232,20 +240,22 @@ print(t2-t1)
 
 
 # Strategy Analytics ----------------------------------------------------------------------
-#updatePortf(portfolio.st)
 updatePortf(portfolio.st)
 dateRange = time(getPortfolio(portfolio.st)$summary)[-1]
-
 updateAcct(portfolio.st, dateRange)
 updateEndEq(account.st)
 
-# Chart
-chart.Posn(portfolio.st)
-# chart.Posn(portfolio.st, symbol = "GDXJ")
+# get trading data for future use...
+book    = getOrderBook(portfolio.st)
+stats   = tradeStats(portfolio.st, use = "trades", inclZeroDays = TRUE)
+ptstats = perTradeStats(portfolio.st)
+txns    = getTxns(portfolio.st, symbols)
+
+chart.Posn(portfolio.st, pars=myPars, theme=mychartTheme)      # Position and Cum. PnL Chart
 
 
 # Trade Statistics ----------------------------------------------------------------------
-tStats = tradeStats(Portfolios = portfolio.st, use="trades", inclZeroDays=FALSE)
+tStats = tradeStats(Portfolios = portfolio.st, use="trades", inclZeroDays=TRUE)
 tStats[,4:ncol(tStats)] = round(tStats[,4:ncol(tStats)], 2)
 print(data.frame(t(tStats[,-c(1,2)])))
 
@@ -254,8 +264,36 @@ print(data.frame(t(tStats[,-c(1,2)])))
 (numTrades = sum(tStats$Num.Trades))
 (meanAvgWLR = mean(tStats$Avg.WinLoss.Ratio[tStats$Avg.WinLoss.Ratio < Inf], na.rm=TRUE))
 
+Return.cumulative(daily.returns)*100
 
-# Daily & Duration Statistics -------------------------------------------------------------------------
+sd.annualized(daily.returns)
+# ga = getAccount(account.st)$summary
+# gp = getPortfolio(portfolio.st)$summary["2019"] 
+
+
+# Annualized Returns Summary ------------------------------------------------------
+equity.curve <- getAccount(account.st)$summary$End.Eq
+daily.returns <- Return.calculate(equity.curve$End.Eq, "discrete")
+names(daily.returns) <- "return"
+
+# get annualized summary
+table.AnnualizedReturns(daily.returns, scale = 260.85) # adjusted for weekdays 
+# per year of ~ 260.85
+
+# chart performance
+charts.PerformanceSummary(daily.returns, main = "FOMC Cycle Strategy Performance")
+
+# get some summary trade statistics
+stats[,c("Symbol", "Num.Trades", "Percent.Positive", "Net.Trading.PL",
+         "Profit.Factor", "Max.Drawdown")] 
+
+# get table of monthly returns
+monthly.returns <-  Return.calculate(to.monthly(equity.curve)[, 4], "discrete")
+names(monthly.returns) <- "Total"
+table.CalendarReturns(monthly.returns)
+
+
+# Daily & Duration Trade Statistics ------------------------------------------------------
 # calculates how many days each trade took (maximum winner, minimum loser, etc.)
 dStats = dailyStats(Portfolios = portfolio.st, use="Equity")
 rownames(dStats) = gsub(".DailyEndEq", "", rownames(dStats))
@@ -303,7 +341,7 @@ firstNonZeroDay = as.character(index(portfRets)[min(which(portfRets != 0))])
 
 # pull Gold continuous futures from CME for GOLD Index
 GOLD.futuresindex <- quandClean(stemCode = "CHRIS/CME_GC",
-                                start_date = "1968-01-02",
+                                start_date = "2000-01-02",
                                 end_date = "2019-07-01",
                                 verbose = TRUE)
 
