@@ -2,6 +2,16 @@
 _created using the [quantstrat](https://github.com/braverock/quantstrat) library_
 <br/>
 <br/>
+
+
+![link](https://raw.githubusercontent.com/chicago-joe/Gold-Futures-Algorithmic-Trading-System-In-R-Language/master/plots/2000.png)
+
+![link](https://raw.githubusercontent.com/chicago-joe/Gold-Futures-Algorithmic-Trading-System-In-R-Language/master/plots/strategy_return_stddev_sharpe.PNG)
+
+![link](https://raw.githubusercontent.com/chicago-joe/Gold-Futures-Algorithmic-Trading-System-In-R-Language/master/plots/trade_stats.PNG)
+
+<br/>
+<br/>
 Huge credit and thank you to [Ilya Kipnis](https://www.linkedin.com/in/ilyakipnis/) for all of his time and effort spent creating walk-throughs and proper documentation for the quantstrat package.
 <br/>
 <br/>
